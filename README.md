@@ -41,7 +41,8 @@ As instrcuted, i gave the default TARGET = BLUE
 
 ![img](/screenshots/4img.jpg)
 
-#####3 Demonstrate Switch
+#####3 Demonstrate Switch and 
+#####4 Migration of data switch
 
 I created a new route '/switch' using app. get in the infrastructure.js file and for switching between BLUE AND GREEN I have created an if else construct which handles this case.
 
