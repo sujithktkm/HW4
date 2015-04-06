@@ -27,3 +27,48 @@ git remote add blue file:///C:/Users/Sujith\ Katakam/Documents/Queues/Deployment
 git remote add green file:///C:/Users/Sujith\ Katakam/Documents/Queues/Deployment/deploy/green.git
 ```
 
+
+#####2 Create blue/green infrastructure
+
+For this I created two redis instances and named one as blue at 6379 and the other as green at 6380.
+
+![img](\screenshots\5img.jpg)
+![img](\screenshots\3img.jpg)
+
+I also made sure they are running and acitve.
+
+As instrcuted, i gave the default TARGET = BLUE
+
+![img](\screenshots\4img.jpg)
+
+#####3 Demonstrate Switch
+
+I created a new route '/switch' using app. get in the infrastructure.js file and for switching between BLUE AND GREEN I have created an if else construct which handles this case.
+
+```
+    app.get('/switch', function(req, res) {
+      if (TARGET == BLUE) {
+        blue.lrange("queue1", 0, -1, function(err, message) {
+          green.del("queue1");
+          message.foreach(function(item) {
+            green.lpush("queue1",item);
+          })
+        })
+        TARGET = GREEN;
+        console.log("Successfully switched to GREEN from BLUE");
+      } else {
+        green.lrange("queue1", 0, -1, function(err, message) {
+          blue.del("queue1");
+          message.foreach(function(item) {
+            blue.lpush("queue1",item);
+          })
+        })
+        TARGET = BLUE;
+        console.log("Successfully switched to BLUE from GREEN")
+      }
+      res.send("switch done");
+    });
+```
+Once the switch is executed, it switches between blue redis instance and green redis instance.
+
+![img](\screenshots\7img.jpg)
