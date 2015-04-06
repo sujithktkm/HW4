@@ -32,14 +32,14 @@ git remote add green file:///C:/Users/Sujith\ Katakam/Documents/Queues/Deploymen
 
 For this I created two redis instances and named one as blue at 6379 and the other as green at 6380.
 
-![img](\screenshots\5img.jpg)
-![img](\screenshots\3img.jpg)
+![img](/screenshots/5img.jpg)
+![img](/screenshots/3img.jpg)
 
 I also made sure they are running and acitve.
 
 As instrcuted, i gave the default TARGET = BLUE
 
-![img](\screenshots\4img.jpg)
+![img](/screenshots/4img.jpg)
 
 #####3 Demonstrate Switch
 
@@ -71,4 +71,4 @@ I created a new route '/switch' using app. get in the infrastructure.js file and
 ```
 Once the switch is executed, it switches between blue redis instance and green redis instance.
 
-![img](\screenshots\7img.jpg)
+![img](/screenshots/7img.jpg)
