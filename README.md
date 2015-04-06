@@ -95,5 +95,28 @@ Thus in mirroring, I initiated the leftout instance also thus the operation is p
         }
       }
 ```
+
+To make sure the upload is done from the proexy, I used a POST method, which does the request on particular server
+
+```
+    app.post('/upload', function(req, res) {
+      console.log(TARGET);
+      proxy.web( req, res, {target: TARGET } );
+      if (flag == 1) {
+        if (TARGET == BLUE) {
+          proxy.web( req, res, {target: GREEN } );
+          console.log("Upload complete");
+        }
+        else {
+          proxy.web( req, res, {target: BLUE } );
+          console.log("Upload complete");
+        }
+      }
+    });
+```
+
+- flag == 1
 ![img](/screenshots/1img.jpg)
+
+- flag == 0
 ![img](/screenshots/7img.jpg)
