@@ -1,6 +1,6 @@
 #####Homework 4
 
-#####1 Git/hook setup for triggering deployment on push
+##### Git/hook setup for triggering deployment on push
 
 As instructed, for this step I followed all the instructions given in Deployment workshop which are:
 - To create a folder structure like 
@@ -27,8 +27,9 @@ git remote add blue file:///C:/Users/Sujith\ Katakam/Documents/Queues/Deployment
 git remote add green file:///C:/Users/Sujith\ Katakam/Documents/Queues/Deployment/deploy/green.git
 ```
 
+![img](/screenshots/2img.jpg)
 
-#####2 Create blue/green infrastructure
+##### Create blue/green infrastructure
 
 For this I created two redis instances and named one as blue at 6379 and the other as green at 6380.
 
@@ -37,12 +38,11 @@ For this I created two redis instances and named one as blue at 6379 and the oth
 
 I also made sure they are running and acitve.
 
-As instrcuted, i gave the default TARGET = BLUE
+As instrcuted, I gave the default TARGET = BLUE
 
 ![img](/screenshots/4img.jpg)
 
-#####3 Demonstrate Switch and 
-#####4 Migration of data switch
+##### Demonstrate Switch and Migration of data on switch
 
 I created a new route '/switch' using app. get in the infrastructure.js file and for switching between BLUE AND GREEN I have created an if else construct which handles this case.
 
@@ -72,4 +72,28 @@ I created a new route '/switch' using app. get in the infrastructure.js file and
 ```
 Once the switch is executed, it switches between blue redis instance and green redis instance.
 
+![img](/screenshots/7img.jpg)
+
+To migrate data on switch, I used 'lrange' to get all the images present in the queue of the present instance, used 'del()' to remove the same copy of images from the queue in the instance to be switched to and then used 'lpush' to push all the images onto the same.
+
+![img](/screenshots/6img.jpg)
+
+#####Mirroring
+
+As told, I used a flag variable to check if mirroring must be done. If the flag == 0 -> no mirroring and if flag == 1 -> mirroring.
+
+Thus in mirroring, I initiated the leftout instance also thus the operation is peroformed on both the instances at the same time.
+
+```
+      proxy.web( req, res, {target: TARGET } );
+      if (flag == 1) {
+        if (TARGET == BLUE) {
+          proxy.web( req, res, {target: GREEN } );
+        }
+        else {
+          proxy.web( req, res, {target: BLUE } );
+        }
+      }
+```
+![img](/screenshots/1img.jpg)
 ![img](/screenshots/7img.jpg)
