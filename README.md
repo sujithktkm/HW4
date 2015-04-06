@@ -14,16 +14,16 @@ I also created a post-receive hook for each of blue and green.
 
 For example, for blue.git -
 
-'''
+```
 #!/bin/sh
 GIT_WORK_TREE=C:/Users/Sujith\ Katakam/Documents/Queues/Deployment/deploy/blue-www/ git checkout -f
 npm install
-'''
+```
 
 Then I set the remotes using
 
-'''
+```
 git remote add blue file:///C:/Users/Sujith\ Katakam/Documents/Queues/Deployment/deploy/blue.git
 git remote add green file:///C:/Users/Sujith\ Katakam/Documents/Queues/Deployment/deploy/green.git
-'''
+```
 
